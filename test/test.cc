@@ -5,6 +5,7 @@
 #include "../code/log/blockingqueue.h"
 #include "../code/log/log.h"
 #include "../code/buffer/buffer.h"
+#include "../code/http/httprequest.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -229,6 +230,71 @@ void TestSyncLog() {
     this_thread::sleep_for(chrono::milliseconds(100));
 }
 
+void TestHttpRequestGetLine() {
+    cout << "=================Testing HttpRequestGetLine=================" << endl;
+    int p[2];
+    assert(pipe(p) != -1);
+    HttpRequest req;
+    req.init();
+    Buffer buff;
+    int err;
+
+    thread([wp = p[1]] {
+        assert(write(wp, "line1\r\nline2\r\n", 14) == 14);
+    }).detach();
+    buff.readFd(p[0], &err);
+    
+    string line;
+    HttpRequest::LINE_STATE lineState = req.getLine(buff, line);
+    assert(lineState == HttpRequest::LINE_OK);
+    assert(line == "line1");
+    lineState = req.getLine(buff, line);
+    assert(lineState == HttpRequest::LINE_OK);
+    assert(line == "line1");
+    buff.retrive(line.size() + 2);
+    lineState = req.getLine(buff, line);
+    assert(lineState == HttpRequest::LINE_OK);
+    assert(line == "line2");
+}
+
+void TestHttpRequestParse() {
+    cout << "=================Testing HttpRequestParse=================" << endl;
+    {
+        int p[2];
+        assert(pipe(p) != -1);
+        HttpRequest req;
+        Buffer buff;
+        int err;
+
+
+        thread([wp = p[1]] {
+            // string s("POST /index HTTP/1.1\r\n"
+            //          "Content-Length: 33\r\n"
+            //          "Connection: keep-alive\r\n"
+            //          "Content-Type: application/x-www-form-urlencoded\r\n"
+            //          "\r\n"
+            //          "username=kiko&password=1004535809");
+            string s("POST /index HTTP/1.1\r\n"
+                     "Content-Length: 43\r\n"
+                     "Connection: keep-alive\r\n"
+                     "Content-Type: application/x-www-form-urlencoded\r\n"
+                     "\r\n"
+                     "username=kiko&password=1004535809&arg=X%20X");
+            assert(write(wp, s.c_str(), s.length()) == static_cast<ssize_t>(s.length()));
+        }).detach();
+        buff.readFd(p[0], &err);
+        HttpRequest::HTTP_CODE code = req.parse(buff);
+        assert(code == HttpRequest::GET_REQUEST);
+        cout << req.method() << endl;
+        cout << req.path() << endl;
+        cout << req.version() << endl;
+        cout << req.body() << endl;
+        cout << "username in post: " << req.getPost("username") << endl;
+        cout << "password in post: " << req.getPost("password") << endl;
+        cout << "arg in post: " << req.getPost("arg") << endl;
+    }
+}
+
 
 int main() {
     // TestThreadPool();
@@ -237,7 +303,9 @@ int main() {
     // TestBlockingQueue();
     // TestBuffer();
     // TestAsyncLog();
-    TestSyncLog();
+    // TestSyncLog();
+    // TestHttpRequestGetLine();
+    TestHttpRequestParse();
     this_thread::sleep_for(chrono::milliseconds(500));
     cout << "TEST FINISHED\n";
     return 0;

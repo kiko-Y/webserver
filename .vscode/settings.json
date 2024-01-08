@@ -108,6 +108,11 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "cstring": "cpp",
-    "cinttypes": "cpp"
+    "cinttypes": "cpp",
+    "bitset": "cpp",
+    "map": "cpp",
+    "unordered_set": "cpp",
+    "regex": "cpp",
+    "shared_mutex": "cpp"
   }
 }
