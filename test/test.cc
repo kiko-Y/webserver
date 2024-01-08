@@ -3,6 +3,7 @@
 #include "../code/pool/sqlconnRAII.h"
 #include "../code/timer/heaptimer.h"
 #include "../code/log/blockingqueue.h"
+#include "../code/log/log.h"
 #include "../code/buffer/buffer.h"
 #include <iostream>
 #include <string>
@@ -200,13 +201,44 @@ void TestBuffer() {
     assert(buf->prependableBytes() == 0);
 }
 
+void TestAsyncLog() {
+    cout << "=================Testing AsyncLog=================" << endl;
+    Log* log = Log::Instance();
+    log->init(Log::LogLevel::INFO, "./log", ".log", 1);
+    for (int i = 0; i < 5; i++) {
+        thread([i, log] {
+            Log_Info("thread %d write a log", i);
+        }).detach();
+    }
+    this_thread::sleep_for(chrono::milliseconds(100));
+    string s;
+    for (int i = 0; i < 128; i++) s.append("x");
+    s.append("o");
+    Log_Info(s);
+}
+
+void TestSyncLog() {
+    cout << "=================Testing SyncLog=================" << endl;
+    Log* log = Log::Instance();
+    log->init(Log::LogLevel::INFO, "./log", ".log", 0);
+    for (int i = 0; i < 5; i++) {
+        thread([i, log] {
+            Log_Info("thread %d write a log", i);
+        }).detach();
+    }
+    this_thread::sleep_for(chrono::milliseconds(100));
+}
+
+
 int main() {
     // TestThreadPool();
     // TestSqlPool();
     // TestHeapTimer();
     // TestBlockingQueue();
-    TestBuffer();
-    this_thread::sleep_for(chrono::milliseconds(1000));
+    // TestBuffer();
+    // TestAsyncLog();
+    TestSyncLog();
+    this_thread::sleep_for(chrono::milliseconds(500));
     cout << "TEST FINISHED\n";
     return 0;
 }

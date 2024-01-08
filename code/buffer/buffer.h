@@ -38,10 +38,10 @@ public:
     ssize_t readFd(int fd, int* errno_);
     ssize_t writefd(int fd, int* errno_);
 
+    void hasWritten(size_t len);
 
 
 private:
-    void hasWrittern_(size_t len);
     char* beginPtr_();
     const char* beginPtr_() const;
     void makeSpace_(size_t len);

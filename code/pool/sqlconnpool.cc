@@ -1,4 +1,5 @@
 #include "sqlconnpool.h"
+#include "../log/log.h"
 #include <assert.h>
 #include <iostream>
 using namespace std;
@@ -44,7 +45,7 @@ void SqlConnPool::Init(std::string_view host, int port,
         MYSQL* sql = nullptr;
         sql = mysql_init(sql);
         if (!sql) {
-            // TODO: log mysql init error
+            Log_Error("mysql init error");
             assert(sql);
         }
         sql = mysql_real_connect(sql, host.data(), user.data(),
@@ -52,7 +53,7 @@ void SqlConnPool::Init(std::string_view host, int port,
                                  port, nullptr, 0);
 
         if (!sql) {
-            // TODO: log mysql connect error
+            Log_Error("mysql connect error");
             assert(sql);
         }
         connQue_.push(sql);

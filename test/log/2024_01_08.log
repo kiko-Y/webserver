@@ -1,0 +1,11 @@
+2024-01-08 16:29:47.356647 [info]: thread 4 write a log
+2024-01-08 16:29:47.356227 [info]: thread 0 write a log
+2024-01-08 16:29:47.356465 [info]: thread 1 write a log
+2024-01-08 16:29:47.356900 [info]: thread 3 write a log
+2024-01-08 16:29:47.356701 [info]: thread 2 write a log
+2024-01-08 16:29:47.456633 [info]: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxo
+2024-01-08 17:22:15.129365 [info]: thread 0 write a log
+2024-01-08 17:22:15.129561 [info]: thread 2 write a log
+2024-01-08 17:22:15.129594 [info]: thread 1 write a log
+2024-01-08 17:22:15.130219 [info]: thread 3 write a log
+2024-01-08 17:22:15.130240 [info]: thread 4 write a log

@@ -65,7 +65,7 @@ void Buffer::append(const char* str, size_t len) {
     assert(str);
     ensureWritable(len);
     std::copy(str, str + len, beginWrite());
-    hasWrittern_(len);
+    hasWritten(len);
 }
 
 void Buffer::append(const void* data, size_t len) {
@@ -92,10 +92,10 @@ ssize_t Buffer::readFd(int fd, int* errno_) {
         return len;
     }
     if (static_cast<size_t>(len) <= writable) {
-        hasWrittern_(len);
+        hasWritten(len);
         return len;
     } else {
-        hasWrittern_(writable);
+        hasWritten(writable);
         append(iov[1].iov_base, len - writable);
     }
     return len;
@@ -112,7 +112,7 @@ ssize_t Buffer::writefd(int fd, int* errno_) {
     return len;
 }
 
-void Buffer::hasWrittern_(size_t len) {
+void Buffer::hasWritten(size_t len) {
     assert(writePos_ + len <= buffer_.size());
     writePos_ += len;
 }
