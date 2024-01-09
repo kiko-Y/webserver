@@ -6,6 +6,7 @@
 #include "../code/log/log.h"
 #include "../code/buffer/buffer.h"
 #include "../code/http/httprequest.h"
+#include "../code/http/httpresponse.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -295,6 +296,22 @@ void TestHttpRequestParse() {
     }
 }
 
+void TestHttpResponse() {
+    cout << "=================Testing HttpResponse=================" << endl;
+    {
+        HttpResponse resp;
+        char* srcDir = getcwd(nullptr, 256);
+        strncat(srcDir, "/resources", 16);
+        resp.init(srcDir, "/index.html");
+        cout << "after init" << endl;
+        Buffer buff;
+        resp.makeResponse(buff);
+        string respContent = buff.retriveAllToString();
+        cout << respContent << endl;
+        
+    }
+}
+
 
 int main() {
     // TestThreadPool();
@@ -305,7 +322,8 @@ int main() {
     // TestAsyncLog();
     // TestSyncLog();
     // TestHttpRequestGetLine();
-    TestHttpRequestParse();
+    // TestHttpRequestParse();
+    TestHttpResponse();
     this_thread::sleep_for(chrono::milliseconds(500));
     cout << "TEST FINISHED\n";
     return 0;

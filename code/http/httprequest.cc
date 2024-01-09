@@ -200,7 +200,6 @@ void HttpRequest::parseFromUrlencoded_() {
     body_ = std::move(processed_body);
     string key, value;
     n = body_.size();
-    int num = 0;
     int i = 0, j = 0;
     for(; i < n; i++) {
         char ch = body_[i];
@@ -227,8 +226,6 @@ void HttpRequest::parseFromUrlencoded_() {
 }
 
 
-
-// TODO: read code
 bool HttpRequest::UserVerify(const std::string& name, const std::string pwd, bool isLogin) {
     if(name == "" || pwd == "") { return false; }
     Log_Info("Verify name:%s pwd:%s", name.c_str(), pwd.c_str());
@@ -248,7 +245,8 @@ bool HttpRequest::UserVerify(const std::string& name, const std::string pwd, boo
     }
     MYSQL_RES *res = mysql_store_result(conn.get());
     unsigned int j = mysql_num_fields(res);
-    MYSQL_FIELD *fields = mysql_fetch_fields(res);
+    assert(j == 2);
+    // MYSQL_FIELD *fields = mysql_fetch_fields(res);
 
     while(MYSQL_ROW row = mysql_fetch_row(res)) {
         Log_Debug("MYSQL ROW: %s %s", row[0], row[1]);
