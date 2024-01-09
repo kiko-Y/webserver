@@ -1,6 +1,13 @@
 #ifndef _HTTPCONN_H_
 #define _HTTPCONN_H_
 
+#include <sys/types.h>
+#include <sys/uio.h>     // readv/writev
+#include <arpa/inet.h>   // sockaddr_in
+#include <stdlib.h>      // atoi()
+#include <errno.h>      
+#include <string>
+
 #include "../log/log.h"
 #include "httprequest.h"
 #include "httpresponse.h"
@@ -37,7 +44,7 @@ public:
 
     static bool isET;
 
-    static const char* srcDir_;
+    static const std::string srcDir;
 
     static std::atomic<int> userCount;
 

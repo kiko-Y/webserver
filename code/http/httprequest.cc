@@ -27,14 +27,14 @@ HttpRequest::HTTP_CODE HttpRequest::parse(Buffer& buff) {
         switch(parseState_) {
         case REQUEST_LINE:
             ret = parseRequestLine_(line);
-            buff.retrive(line.length() + 2);
+            buff.retrieve(line.length() + 2);
             if (ret == BAD_REQUEST) {
                 return BAD_REQUEST;
             }
             break;
         case HEADERS:
             ret = parseHeader_(line);
-            buff.retrive(line.length() + 2);
+            buff.retrieve(line.length() + 2);
             if (ret != NO_REQUEST) {
                 // GET_REQUEST or BAD_REQUEST
                 return ret;
@@ -42,7 +42,7 @@ HttpRequest::HTTP_CODE HttpRequest::parse(Buffer& buff) {
             break;
         case BODY:
             ret = parseBody_(line);
-            buff.retrive(line.length());
+            buff.retrieve(line.length());
             return ret;
             break;
         default:

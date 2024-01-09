@@ -20,12 +20,12 @@ public:
     const char* peek() const;
     void ensureWritable(size_t len);
 
-    void retrive(size_t len);
-    void retriveUntil(const char* end);
+    void retrieve(size_t len);
+    void retrieveUntil(const char* end);
 
-    void retriveAll();
+    void retrieveAll();
 
-    std::string retriveAllToString();
+    std::string retrieveAllToString();
 
     const char* beginWrite() const;
     char* beginWrite();

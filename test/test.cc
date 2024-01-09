@@ -7,6 +7,8 @@
 #include "../code/buffer/buffer.h"
 #include "../code/http/httprequest.h"
 #include "../code/http/httpresponse.h"
+#include "../code/http/httpconn.h"
+#include "../code/server/epoller.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -252,7 +254,7 @@ void TestHttpRequestGetLine() {
     lineState = req.getLine(buff, line);
     assert(lineState == HttpRequest::LINE_OK);
     assert(line == "line1");
-    buff.retrive(line.size() + 2);
+    buff.retrieve(line.size() + 2);
     lineState = req.getLine(buff, line);
     assert(lineState == HttpRequest::LINE_OK);
     assert(line == "line2");
@@ -306,12 +308,77 @@ void TestHttpResponse() {
         cout << "after init" << endl;
         Buffer buff;
         resp.makeResponse(buff);
-        string respContent = buff.retriveAllToString();
+        string respContent = buff.retrieveAllToString();
         cout << respContent << endl;
         
     }
 }
 
+void TestHttpConn() {
+    cout << "=================Testing HttpConn=================" << endl;
+    {
+        HttpConn conn;
+        int p[2];
+        assert(pipe(p) != -1);
+        HttpConn::isET = true;
+        // TODO: TEST
+    }
+
+}
+
+int setFdNonblock(int fd) {
+    assert(fd > 0);
+    return fcntl(fd, F_SETFL, fcntl(fd, F_GETFD, 0) | O_NONBLOCK);
+}
+
+
+void TestEpoller() {
+    cout << "=================Testing Epoller=================" << endl;
+    {
+        Epoller epoller(16);
+        atomic<bool> isClosed = false;
+        thread([&isClosed, &epoller] {
+            char buf[64];
+            while(!isClosed) {
+                int n = epoller.wait(200);
+                if (n != -1) {
+                    cout << "EPOLL trigered with " << n << endl;;
+                }
+                for (int i = 0; i < n; i++) {
+                    uint32_t events = epoller.getEvents(i);
+                    int fd = epoller.getEventFd(i);
+                    if (events & EPOLLIN) {
+                        int ret = read(fd, buf, sizeof(buf));
+                        cout << "epoll thread read: " << buf << ", len: " << ret << endl;
+                    } else if (events & EPOLLOUT) {
+                        int ret = write(fd, "hello", 5);
+                        cout << "epoll thread write: " << "hello" << ", len: " << ret << endl;
+                    }
+                }
+            }
+        }).detach();
+        this_thread::sleep_for(chrono::milliseconds(50));
+        int p1[2];
+        int p2[2];
+        assert(!pipe(p1));
+        assert(!pipe(p2));
+        int ret = write(p1[1], "kiko's data", 11);
+        cout << "main thread write: " << "kiko's data" << ", len: " << ret << endl;
+        epoller.addFd(p1[0], EPOLLIN | EPOLLONESHOT);
+
+        this_thread::sleep_for(chrono::milliseconds(50));
+        epoller.addFd(p2[1], EPOLLOUT | EPOLLONESHOT);
+        this_thread::sleep_for(chrono::milliseconds(50));
+        char buf[64];
+        int len = read(p2[0], buf, 64);
+        cout << "main thread read: " << buf << ", len: " << len << endl;
+        this_thread::sleep_for(chrono::milliseconds(500));
+        epoller.delFd(p1[0]);
+        epoller.delFd(p2[1]);
+        isClosed = true;
+
+    }
+}
 
 int main() {
     // TestThreadPool();
@@ -323,7 +390,8 @@ int main() {
     // TestSyncLog();
     // TestHttpRequestGetLine();
     // TestHttpRequestParse();
-    TestHttpResponse();
+    // TestHttpResponse();
+    TestEpoller();
     this_thread::sleep_for(chrono::milliseconds(500));
     cout << "TEST FINISHED\n";
     return 0;

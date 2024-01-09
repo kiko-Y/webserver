@@ -27,25 +27,25 @@ void Buffer::ensureWritable(size_t len) {
     assert(writableBytes() >= len);
 }
 
-void Buffer::retrive(size_t len) {
+void Buffer::retrieve(size_t len) {
     assert(len <= readableBytes());
     readPos_ += len;
 }
 
-void Buffer::retriveUntil(const char* end) {
+void Buffer::retrieveUntil(const char* end) {
     assert(peek() <= end);
-    retrive(end - peek());
+    retrieve(end - peek());
 }
 
-void Buffer::retriveAll() {
+void Buffer::retrieveAll() {
     fill(buffer_.begin(), buffer_.end(), '\0');
     readPos_ = 0;
     writePos_ = 0;
 }
 
-std::string Buffer::retriveAllToString() {
+std::string Buffer::retrieveAllToString() {
     std::string str(peek(), readableBytes());
-    retriveAll();
+    retrieveAll();
     return str;
 }
 

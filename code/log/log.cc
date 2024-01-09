@@ -51,7 +51,7 @@ void Log::init(LogLevel level, const std::string& path,
         std::lock_guard<std::mutex> locker(mtx_);
         lineCount_ = 0;
         level_ = level;
-        buff_.retriveAll();
+        buff_.retrieveAll();
         if (fp_) {
             flush();
             fclose(fp_);
@@ -111,11 +111,11 @@ void Log::write(LogLevel level, const std::string& format, va_list v) {
     buff_.hasWritten(m);
     buff_.append("\n\0", 2);
     if (isAsync_ && que_ && !que_->full()) {
-        que_->push(buff_.retriveAllToString());
+        que_->push(buff_.retrieveAllToString());
     } else {
         fputs(buff_.peek(), fp_);
     }
-    buff_.retriveAll();
+    buff_.retrieveAll();
 
 }
 
