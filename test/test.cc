@@ -9,6 +9,7 @@
 #include "../code/http/httpresponse.h"
 #include "../code/http/httpconn.h"
 #include "../code/server/epoller.h"
+#include "../code/server/webserver.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -380,6 +381,76 @@ void TestEpoller() {
     }
 }
 
+void TestConnect() {
+    {
+        int port = 1316;
+        bool openLinger = false;
+        auto getListenFd = [port, openLinger] () -> int {
+            int listenFd = socket(AF_INET, SOCK_STREAM, 0);
+            assert(listenFd > 0);
+            sockaddr_in addr;
+            addr.sin_family = AF_INET;
+            addr.sin_port = htons(port);
+            addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+
+            struct linger optLinger = {0};
+            if (openLinger) {
+                optLinger.l_onoff = 1;
+                optLinger.l_linger = 1;
+            }
+            int ret = setsockopt(listenFd, SOL_SOCKET, SO_LINGER, &optLinger, sizeof(optLinger));
+            assert(ret != -1);
+
+            int optval = 1;
+            /* 端口复用 */
+            /* 只有最后一个套接字会正常接收数据。 */
+            ret = setsockopt(listenFd, SOL_SOCKET, SO_REUSEADDR, (const void*)&optval, sizeof(int));
+            assert(ret != -1);
+
+            ret = bind(listenFd, (sockaddr*)&addr, sizeof(addr));
+            assert(ret != -1);
+
+            ret = listen(listenFd, 6);
+            assert(ret != -1);
+            ret = fcntl(listenFd, F_SETFL, fcntl(listenFd, F_GETFL, 0) | O_NONBLOCK);
+            assert(ret != -1);
+            return listenFd;
+        };
+        int listenEvent = EPOLLRDHUP | EPOLLET;
+        int connEvent = EPOLLONESHOT | EPOLLRDHUP | EPOLLET;
+
+        int listenFd = getListenFd();
+        cout << "listenFd: " << listenFd << endl;
+        
+        Epoller epoller;
+        epoller.addFd(listenFd, listenEvent | EPOLLIN);
+        cout << "=================Server Start=================" << endl;
+        while (true) {
+            int eventCnt = epoller.wait();
+            cout << "eventCnt: " << eventCnt << endl;
+            for (int i = 0; i < eventCnt; i++) {
+                int eventFd = epoller.getEventFd(i);
+                int events = epoller.getEvents(i);
+                if (eventFd == listenFd) {
+                    thread([listenFd] {
+                        sockaddr_in addr_accepted;
+                        socklen_t len = static_cast<socklen_t>(sizeof(addr_accepted));
+                        int fd = accept(listenFd, (sockaddr*)&addr_accepted, &len);
+                        assert(fd > 0);
+                        fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK);
+                        cout << "connect to new socket fd: " << fd << endl;
+                    }).detach();
+                } else if (events & EPOLLIN) {
+
+                } else {
+                    cout << "other events unhandled\n" << flush;
+                }
+            }
+        }
+    }
+}
+
 int main() {
     // TestThreadPool();
     // TestSqlPool();
@@ -391,7 +462,8 @@ int main() {
     // TestHttpRequestGetLine();
     // TestHttpRequestParse();
     // TestHttpResponse();
-    TestEpoller();
+    // TestEpoller();
+    TestConnect();
     this_thread::sleep_for(chrono::milliseconds(500));
     cout << "TEST FINISHED\n";
     return 0;

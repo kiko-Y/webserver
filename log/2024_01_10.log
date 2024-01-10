@@ -1,0 +1,108 @@
+2024-01-10 17:31:33.973367 [info]: Server listen at port:1316
+2024-01-10 17:31:33.973407 [info]: ========== Server init ==========
+2024-01-10 17:31:33.973416 [info]: Port:1316, OpenLinger: false
+2024-01-10 17:31:33.973420 [info]: listenFd: 17
+2024-01-10 17:31:33.973423 [info]: Listen Mode: ET, OpenConn Mode: ET
+2024-01-10 17:31:33.973426 [info]: LogSys level: 1
+2024-01-10 17:31:33.973504 [info]: srcDir: /root/projects/KikoWebServer/resources
+2024-01-10 17:31:33.973514 [info]: SqlConnPool num: 12, ThreadPool num: 6
+2024-01-10 17:31:35.656649 [info]: ========== Server start ==========
+2024-01-10 17:31:39.788981 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:31:44.345410 [info]: Client[18](127.0.0.1:4782) in, userCount:1
+2024-01-10 17:31:44.345585 [info]: Client[18] in!
+2024-01-10 17:31:44.345778 [info]: Client[23](127.0.0.1:8878) in, userCount:2
+2024-01-10 17:31:44.345881 [info]: Client[23] in!
+2024-01-10 17:31:44.345946 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:31:49.181863 [info]: epoll_wait get eventCnt: -1
+2024-01-10 17:31:56.589598 [info]: epoll_wait get eventCnt: -1
+2024-01-10 17:32:01.277578 [info]: epoll_wait get eventCnt: -1
+2024-01-10 17:34:18.537671 [info]: Server listen at port:1316
+2024-01-10 17:34:18.537721 [info]: ========== Server init ==========
+2024-01-10 17:34:18.537733 [info]: Port:1316, OpenLinger: false
+2024-01-10 17:34:18.537738 [info]: listenFd: 17
+2024-01-10 17:34:18.537831 [info]: Listen Mode: ET, OpenConn Mode: ET
+2024-01-10 17:34:18.537843 [info]: LogSys level: 1
+2024-01-10 17:34:18.538056 [info]: srcDir: /root/projects/KikoWebServer/resources
+2024-01-10 17:34:18.538299 [info]: SqlConnPool num: 12, ThreadPool num: 6
+2024-01-10 17:34:18.538461 [info]: ========== Server start ==========
+2024-01-10 17:34:21.099928 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.100090 [info]: Client[18](127.0.0.1:29393) in, userCount:1
+2024-01-10 17:34:21.100153 [info]: Client[18] in!
+2024-01-10 17:34:21.100531 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.102363 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.126941 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.129817 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.154990 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.156526 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.186265 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.190052 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.204910 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.205674 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.205869 [info]: Client[23](127.0.0.1:30929) in, userCount:2
+2024-01-10 17:34:21.205910 [info]: Client[23] in!
+2024-01-10 17:34:21.205959 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.206864 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.207429 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.213508 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.216772 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.220773 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.223021 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.225729 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.227648 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.228638 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.230436 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.400423 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.400569 [info]: Client[24](127.0.0.1:31953) in, userCount:3
+2024-01-10 17:34:21.400613 [info]: Client[24] in!
+2024-01-10 17:34:21.400815 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.401729 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.442209 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.442370 [info]: Client[26](127.0.0.1:34513) in, userCount:4
+2024-01-10 17:34:21.442453 [info]: Client[26] in!
+2024-01-10 17:34:21.442481 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.443214 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.496771 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.496999 [info]: Client[27](127.0.0.1:36561) in, userCount:5
+2024-01-10 17:34:21.497113 [info]: Client[27] in!
+2024-01-10 17:34:21.497233 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.498079 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.563822 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.564049 [info]: Client[28](127.0.0.1:40145) in, userCount:6
+2024-01-10 17:34:21.564199 [info]: Client[28] in!
+2024-01-10 17:34:21.564279 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.565043 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.636160 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:21.638182 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.480307 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.481348 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.509841 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.511045 [info]: epoll_wait get eventCnt: 2
+2024-01-10 17:34:24.511442 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.512118 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.512386 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.512465 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.512988 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.524194 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.524316 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.526254 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.526698 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.526786 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.526916 [info]: epoll_wait get eventCnt: 2
+2024-01-10 17:34:24.527960 [info]: epoll_wait get eventCnt: 2
+2024-01-10 17:34:24.528195 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.528435 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.530500 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.534276 [info]: epoll_wait get eventCnt: 2
+2024-01-10 17:34:24.536100 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.537656 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.538452 [info]: epoll_wait get eventCnt: 2
+2024-01-10 17:34:24.538889 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.540317 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.543894 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.544518 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.546740 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.548738 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.550278 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.554743 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.556067 [info]: epoll_wait get eventCnt: 1
+2024-01-10 17:34:24.557681 [info]: epoll_wait get eventCnt: 1

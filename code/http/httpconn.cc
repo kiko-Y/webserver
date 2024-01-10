@@ -3,7 +3,7 @@
 using namespace std;
 
 bool HttpConn::isET;
-const string HttpConn::srcDir;
+string HttpConn::srcDir;
 atomic<int> HttpConn::userCount;
 
 HttpConn::HttpConn() {

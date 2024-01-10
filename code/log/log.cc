@@ -140,9 +140,9 @@ void Log::appendLogLevelTitle_(LogLevel level) {
 }
 
 void Log::flush() {
-    // if (isAsync_) {
-    //     que_->flush();
-    // }
+    if (isAsync_) {
+        que_->flush();
+    }
     fflush(fp_);
 }
 
