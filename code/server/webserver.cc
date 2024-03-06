@@ -255,6 +255,7 @@ void WebServer::onWrite_(HttpConn* client) {
         if (writeErrno == EAGAIN) {
             // 缓冲区写满了, 要重新写
             epoller_->modFd(client->getFd(), connEvent_ | EPOLLOUT);
+            return;
         }
     }
     closeConn_(client);

@@ -1,0 +1,1 @@
+/etc/init.d/mysql start 启动 mysql
